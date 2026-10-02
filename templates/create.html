@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Tạo bài tập · Lớp học{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="{{ url_for('static', filename='vendor/katex/katex.min.css') }}">{% endblock %}
+{% block content %}
+<a class="back" href="{{ url_for('dashboard') }}">← Trang giáo viên</a>
+<div class="page-heading"><div><span class="eyebrow">BÀI TẬP MỚI</span><h1>Giao bài cho lớp</h1><p>Chọn nhóm môn/lớp; thêm từng câu và điểm tối đa của câu.</p></div></div>
+<form class="panel editor" method="post" enctype="multipart/form-data" id="quiz-editor"><input type="hidden" name="csrf" value="{{ csrf_token() }}"><input type="hidden" name="quiz_json" id="quiz-json">
+  <div class="form-section"><h2>01 / Thông tin bài tập</h2>
+    <label>Nhóm môn/lớp <select name="group_id" required>{% for group in groups %}<option value="{{ group.id }}" {% if request.form.get('group_id') == group.id|string %}selected{% endif %}>{{ group.name }}</option>{% endfor %}</select></label>
+    <label>Tên bài tập <input type="text" name="title" maxlength="150" value="{{ request.form.get('title','') }}" required></label>
+    <label>Mô tả <textarea name="description" rows="2" maxlength="1000">{{ request.form.get('description','') }}</textarea></label>
+    <label>PDF tham khảo (không bắt buộc, chỉ giáo viên xem; PDF và ảnh trong cùng bài tối đa 20 MB) <input type="file" name="pdf" accept="application/pdf,.pdf"></label>
+    <div class="identity-grid"><label>Thời gian làm bài (phút) <input type="number" name="duration_minutes" min="1" max="180" value="{{ request.form.get('duration_minutes', 30) }}" required></label><label>Hạn cuối để bắt đầu (giờ Việt Nam) <input type="datetime-local" name="due_at" value="{{ request.form.get('due_at','') }}"></label></div>
+  </div>
+  <div class="form-section"><h2>02 / Câu hỏi & điểm</h2><p>Bấm <strong>∑ Công thức</strong> cạnh ô muốn chèn (câu hỏi, từng phương án, ý đúng/sai hoặc đáp án ngắn), tìm ký hiệu và chọn công thức. Có thể sửa các chữ a, b, x sau khi chèn và mở “Xem trước” để kiểm tra. Chọn hoặc dán ảnh vào mỗi câu (tối đa 3 ảnh). Câu đúng/sai bắt buộc 4 ý, tối đa 1 điểm: đúng 1 ý được 0,1; 2 ý 0,25; 3 ý 0,5; 4 ý 1.</p><div id="question-editor"></div><button class="button ghost" type="button" id="add-question">+ Thêm câu hỏi</button></div>
+  <div class="form-actions"><a class="button ghost" href="{{ url_for('dashboard') }}">Hủy</a><button class="button primary" type="submit">Đăng bài tập →</button></div>
+</form>
+<dialog class="latex-picker" id="latex-picker" aria-labelledby="latex-picker-title">
+  <div class="latex-picker-header"><div><span class="eyebrow">SOẠN ĐỀ TOÁN</span><h2 id="latex-picker-title">Kho công thức LaTeX</h2></div><button class="button ghost latex-close" type="button" aria-label="Đóng kho công thức">✕</button></div>
+  <label>Tìm tên hoặc mã LaTeX <input id="latex-search" type="search" placeholder="Ví dụ: phân số, tích phân, \sqrt, vectơ" autocomplete="off"></label>
+  <div class="latex-tabs" role="group" aria-label="Nhóm công thức"></div>
+  <div class="latex-results"></div>
+  <p class="hint">Chọn công thức để chèn vào ô đang soạn, rồi thay các ký tự mẫu. Tham khảo: <a href="https://www.mathvn.com/2021/09/latex-co-ban-cach-go-cac-cong-thuc-ki.html" target="_blank" rel="noopener">Danh mục LaTeX của MathVN ↗</a></p>
+</dialog>
+<script id="quiz-initial" type="application/json">{{ request.form.get('quiz_json', '[]')|tojson }}</script>
+<script src="{{ url_for('static', filename='vendor/katex/katex.min.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/katex/auto-render.min.js') }}" defer></script>
+<script src="{{ url_for('static', filename='math.js') }}" defer></script>
+<script src="{{ url_for('static', filename='latex-catalog.js') }}" defer></script>
+<script src="{{ url_for('static', filename='editor.js') }}" defer></script>
+<script src="{{ url_for('static', filename='latex-picker.js') }}" defer></script>
+{% endblock %}

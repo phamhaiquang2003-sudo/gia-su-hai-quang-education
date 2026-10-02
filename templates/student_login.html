@@ -1,0 +1,3 @@
+{% extends 'base.html' %}
+{% block title %}Đăng nhập học sinh{% endblock %}
+{% block content %}<section class="panel start-panel"><span class="eyebrow">HỌC SINH</span><h1>Đăng nhập bằng mã</h1><p>Nhập mã riêng do giáo viên cấp để xem bài tập của nhóm và theo dõi kết quả.</p><form method="post"><input type="hidden" name="csrf" value="{{ csrf_token() }}"><label>Mã học sinh <input name="code" maxlength="32" autocomplete="off" required placeholder="HS-..."></label><button class="button primary" type="submit">Vào lớp học →</button></form></section>{% endblock %}

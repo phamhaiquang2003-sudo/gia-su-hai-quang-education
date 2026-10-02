@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Bài tập về nhà · Lớp học{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="eyebrow">KHÔNG GIAN HỌC TẬP</div>
+  <h1>Bài tập về nhà<span class="hero-period">.</span></h1>
+  <p>Xem đề, chọn đáp án và nộp bài ngay tại đây. Các em nhớ ghi đúng họ tên và lớp nhé!</p>
+  <div class="hero-decoration" aria-hidden="true">{{ assignments|length }}<span> bài</span></div>
+</section>
+<div class="section-heading"><div><span class="eyebrow">DANH SÁCH BÀI</span><h2>Bài tập của lớp</h2></div><span class="count">{{ assignments|length }} bài tập</span></div>
+<div class="assignment-grid">
+  {% for item in assignments %}
+    <article class="assignment-card">
+      <div class="card-top"><span class="number">BÀI {{ '%02d'|format(loop.revindex) }}</span><span class="badge {{ 'open' if is_available(item) else 'closed' }}">{{ 'Đang nhận bài' if is_available(item) else 'Đã đóng' }}</span></div>
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.description or 'Mở đề bài để xem và làm bài tập.' }}</p>
+      <div class="card-meta"><span>{{ item.question_count }} câu hỏi</span><span>⏱ {{ item.duration_minutes }} phút</span><span>Hạn: {{ item.due_at[:16].replace('T', ' · ') if item.due_at else 'Không giới hạn' }}</span></div>
+      <a class="card-link" href="{{ url_for('student_assignment', assignment_id=item.id) }}">{{ 'Vào làm bài' if is_available(item) else 'Xem đề bài' }} <span aria-hidden="true">↗</span></a>
+    </article>
+  {% else %}<div class="empty">Chưa có bài tập nào. Giáo viên sẽ đăng bài sớm!</div>{% endfor %}
+</div>
+{% endblock %}

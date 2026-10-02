@@ -1,0 +1,13 @@
+# Local classroom data, credentials, uploaded materials and generated question sets.
+/data/
+/uploads/
+/questions/
+/tools/
+__pycache__/
+*.py[cod]
+.env
+.venv/
+*.sqlite3
+*.pdf
+.env.*
+*.log

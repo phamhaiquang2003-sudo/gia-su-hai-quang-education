@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Đang làm: {{ assignment.title }}{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="{{ url_for('static', filename='vendor/katex/katex.min.css') }}">{% endblock %}
+{% block content %}
+<div class="exam-top"><div><span class="eyebrow">BÀI LÀM CỦA {{ attempt.student_name|upper }} · {{ attempt.class_name }}</span><h1>{{ assignment.title }}</h1><p>Có thể nộp bài bất kỳ lúc nào, kể cả khi chưa trả lời hết. Câu bỏ trống nhận 0 điểm.</p></div></div>
+<div class="exam-toolbar"><div class="exam-progress"><span>Đã trả lời <strong id="answered-count">0</strong>/{{ assignment.question_count }} câu</span><div class="progress-track"><div id="progress-fill"></div></div></div><div class="timer" id="countdown" data-remaining="{{ remaining }}" role="timer" aria-label="Thời gian làm bài còn lại"><span>CÒN LẠI</span><strong id="timer-text">--:--</strong></div></div>
+<form action="{{ url_for('submit', token=attempt.token) }}" method="post" class="exam-form" id="exam-form" data-question-count="{{ assignment.question_count }}" data-save-url="{{ url_for('save_draft', token=attempt.token) }}" data-draft="{{ draft if draft is string else '' }}">
+  <input type="hidden" name="csrf" value="{{ csrf_token() }}"><input type="hidden" name="auto" id="auto-submit" value="">
+  <div class="question-list">
+    {% for question in questions %}
+      {% set kind = question.type|default('mcq') %}
+      {% set value = answers[loop.index0] %}
+      <fieldset class="full-question"><legend>Câu {{ question.number }} {% if question.points is defined %}· {{ question.points }} điểm{% endif %}</legend><div class="question-text">{{ question.content|safe }}</div>
+      {% for image in question.images|default([]) %}<img class="question-image" src="{{ url_for('question_image', assignment_id=assignment.id, filename=image) }}" alt="Hình minh họa câu {{ question.number }} ({{ loop.index }})" loading="lazy">{% endfor %}
+      {% if kind == 'mcq' %}
+        <div class="answer-options">{% for option in question.options %}<label class="answer-option"><input type="radio" name="q{{ question.number }}" value="{{ option.key }}" {% if value == option.key %}checked{% endif %}><span class="answer-letter">{{ option.key }}</span><span class="answer-content">{{ option.content|safe }}</span></label>{% endfor %}</div>
+      {% elif kind == 'true_false' %}
+        {% for statement in question.statements %}<div class="truth-row"><span>{{ 'abcd'[loop.index0] }}. {{ statement|safe }}</span><label><input type="radio" name="q{{ question.number }}_{{ loop.index0 }}" value="D" {% if value[loop.index0] == 'D' %}checked{% endif %}> Đúng</label><label><input type="radio" name="q{{ question.number }}_{{ loop.index0 }}" value="S" {% if value[loop.index0] == 'S' %}checked{% endif %}> Sai</label></div>{% endfor %}
+      {% else %}
+        <label>Trả lời ngắn <input type="text" name="q{{ question.number }}" maxlength="200" value="{{ value }}" autocomplete="off" placeholder="Nhập đáp án ngắn"></label>
+      {% endif %}
+      </fieldset>
+    {% endfor %}
+  </div>
+  <div class="submit-footer"><p>Các câu chưa làm sẽ được tính 0 điểm. Nộp bài là hoàn tất, không thể sửa lại.</p><button class="button primary" type="submit" id="submit-button">Nộp bài & xem điểm →</button></div>
+</form>
+<script src="{{ url_for('static', filename='vendor/katex/katex.min.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/katex/auto-render.min.js') }}" defer></script>
+<script src="{{ url_for('static', filename='math.js') }}" defer></script>
+<script src="{{ url_for('static', filename='exam.js') }}" defer></script>
+{% endblock %}

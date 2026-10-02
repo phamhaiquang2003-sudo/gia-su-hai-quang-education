@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Nộp bài thành công{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="{{ url_for('static', filename='vendor/katex/katex.min.css') }}">{% endblock %}
+{% block content %}
+<section class="result-card"><div class="result-icon">✓</div><span class="eyebrow">ĐÃ GHI NHẬN</span><h1>Nộp bài thành công!</h1><p>Bài làm của <strong>{{ result.student_name }}</strong> · {{ result.class_name }} đã được gửi đến giáo viên.</p>{% if review %}<div class="score-highlight"><strong>{{ result.score|round(2)|int if result.score == result.score|int else result.score }}/{{ max_score|int if max_score == max_score|int else max_score }}</strong><span>điểm đạt được</span></div>{% endif %}<div class="receipt-details"><div><span>Bài tập</span><strong>{{ result.title }}</strong></div><div><span>Thời gian nộp</span><strong>{{ result.submitted_at[:16].replace('T', ' · ') }} (giờ Việt Nam)</strong></div></div><a class="button primary" href="{{ url_for('home') }}">Về danh sách bài tập</a></section>
+{% if review %}<section class="panel review-panel"><div class="panel-heading"><div><span class="eyebrow">CHI TIẾT BÀI LÀM</span><h2>Đối chiếu từng câu</h2></div></div><div class="review-grid">{% for item in review %}<div class="review-item {{ 'right' if item.right else 'wrong' }}"><strong>Câu {{ item.number }}</strong><span>Em chọn <b>{{ item.chosen }}</b></span><span>Đáp án <b>{{ item.correct }}</b></span><span class="review-status">{{ item.awarded }} / {{ item.max_points }} điểm</span></div>{% endfor %}</div></section>{% endif %}
+<script src="{{ url_for('static', filename='vendor/katex/katex.min.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/katex/auto-render.min.js') }}" defer></script>
+<script src="{{ url_for('static', filename='math.js') }}" defer></script>
+{% endblock %}

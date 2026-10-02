@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Trang giáo viên · Lớp học{% endblock %}
+{% block content %}
+<div class="page-heading"><div><span class="eyebrow">KHÔNG GIAN GIÁO VIÊN</span><h1>Quản lý bài tập</h1><p>Giao bài, xem bài nộp và theo dõi tiến độ của lớp.</p></div><a class="button primary" href="{{ url_for('create_assignment') }}">+ Tạo bài tập</a></div>
+<section class="panel"><h2>Nhóm môn/lớp</h2><form method="post" action="{{ url_for('create_group') }}"><input type="hidden" name="csrf" value="{{ csrf_token() }}"><div class="identity-grid"><label>Tên nhóm mới <input name="name" maxlength="60" required placeholder="Ví dụ: Toán 9, Lý 12"></label><button class="button primary" type="submit">+ Tạo nhóm</button></div></form><div class="group-links">{% for group in groups %}<a class="button ghost" href="{{ url_for('group_detail', group_id=group.id) }}">{{ group.name }} · {{ group.student_count }} học sinh →</a>{% endfor %}</div></section>
+<div class="section-heading"><h2>Bài tập đã đăng</h2><span class="count">{{ assignments|length }} bài tập</span></div>
+<div class="teacher-list">
+  {% for item in assignments %}<article class="teacher-item"><div><div class="item-top"><span class="badge {{ 'open' if is_available(item) else 'closed' }}">{{ 'Đang nhận bài' if is_available(item) else 'Đã đóng' }}</span><span class="hint">{{ item.group_name }} · Bài #{{ item.id }}</span></div><h3>{{ item.title }}</h3><p>{{ item.question_count }} câu hỏi · {{ item.duration_minutes }} phút · {{ item.submission_count }} lượt nộp · Hạn {{ item.due_at[:16].replace('T', ' · ') if item.due_at else 'không giới hạn' }}</p></div><a class="button ghost" href="{{ url_for('teacher_assignment', assignment_id=item.id) }}">Quản lý ↗</a></article>
+  {% else %}<div class="empty">Chưa có bài tập. Chọn “Tạo bài tập” để bắt đầu.</div>{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}{{ assignment.title }} · Lớp học{% endblock %}
+{% block content %}
+<a class="back" href="{{ url_for('home') }}">← Tất cả bài tập</a>
+<div class="page-heading"><div><span class="eyebrow">BÀI TẬP SỐ {{ '%02d'|format(assignment.id) }}</span><h1>{{ assignment.title }}</h1><p>{{ assignment.description }}</p></div><span class="badge {{ 'open' if available else 'closed' }}">{{ 'Đang nhận bài' if available else 'Đã đóng' }}</span></div>
+<div class="info-strip"><span>{{ assignment.question_count }} câu hỏi</span><span>⏱ {{ assignment.duration_minutes }} phút làm bài</span><span>Hạn bắt đầu: {{ assignment.due_at[:16].replace('T', ' · ') ~ ' (giờ Việt Nam)' if assignment.due_at else 'Không giới hạn' }}</span></div>
+{% if current_attempt %}
+  <section class="panel start-panel"><h2>Bạn đang làm bài này</h2><p>Thời gian vẫn tiếp tục đếm. Hãy trở lại bài đang làm để hoàn thành trước khi hết giờ.</p><a class="button primary" href="{{ url_for('take_exam', token=current_attempt.token) }}">Tiếp tục làm bài →</a></section>
+{% elif submitted %}
+  <div class="notice">Em đã nộp bài này. <a href="{{ url_for('receipt_page', receipt=submitted.receipt) }}">Xem điểm và đáp án →</a></div>
+{% elif available %}
+  <section class="panel start-panel"><span class="eyebrow">TRƯỚC KHI BẮT ĐẦU</span><h2>Sẵn sàng làm bài?</h2><p>Câu hỏi và các lựa chọn sẽ xuất hiện sau khi bạn nhấn “Bắt đầu”. Đồng hồ bắt đầu chạy ngay và không đặt lại khi tải lại trang. Nộp bài hoặc hết giờ sẽ hiện điểm cùng đáp án đúng.</p>
+    <p>Đăng nhập với tư cách: <strong>{{ current_student.name if current_student else 'giáo viên' }}</strong>.</p><form method="post" action="{{ url_for('start_attempt', assignment_id=assignment.id) }}"><input type="hidden" name="csrf" value="{{ csrf_token() }}"><button class="button primary" type="submit">Bắt đầu làm bài →</button></form>
+  </section>
+{% else %}<div class="notice">Bài tập chưa mở, đã hết hạn hoặc chưa có nội dung câu hỏi. Vui lòng liên hệ giáo viên.</div>{% endif %}
+{% endblock %}

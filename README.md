@@ -10,7 +10,8 @@ Học sinh có thể mở bản demo này mà không cần máy giáo viên bậ
 
 ### Các màn hình
 
-- Trang danh sách bài tập, đăng nhập học sinh và đăng nhập giáo viên bằng thông tin mẫu.
+- Thư viện đề theo bố cục thanh môn học, bộ lọc bên trái và lưới thẻ đề có ảnh bìa. Tìm kiếm tiếng Việt có/không dấu, lọc lớp/danh mục/mức phí và sắp xếp đề trực tiếp trên trình duyệt.
+- Chuyển môn Toán, Vật lý, Hóa học, Tin học hoặc danh mục HSA/TSA, thi thử TNTHPT. Danh mục mẫu gồm 14 thẻ; mặc định hiển thị 7 đề Vật lý. Đăng nhập học sinh và giáo viên dùng thông tin mẫu.
 - Trang giáo viên, quản lý lớp, quản lý bài tập và theo dõi tiến độ mẫu.
 - Soạn đề với ba dạng câu hỏi, kho 111 mẫu LaTeX, chọn ảnh và dán ảnh vào câu hỏi.
 - Làm đề mẫu có đồng hồ, tự lưu câu trả lời trong phiên trình duyệt và nộp bài sớm.
@@ -18,7 +19,7 @@ Học sinh có thể mở bản demo này mà không cần máy giáo viên bậ
 
 Thanh **DEMO GIAO DIỆN** giúp chuyển giữa các màn hình. Có thể làm thử và xem điểm ngay trên trình duyệt.
 
-**Đây là demo với dữ liệu minh họa.** Biểu mẫu quản lý chưa tạo nhóm, cấp mã hoặc đăng đề thật; điểm làm thử không gửi cho giáo viên và không đồng bộ sang thiết bị khác. Không nhập mật khẩu hoặc thông tin học sinh thật vào demo.
+**Đây là demo với dữ liệu minh họa.** Số câu, thời gian và mức phí trên thẻ là thông tin minh họa; mỗi thẻ mở đề mẫu 3 câu để trải nghiệm, không có thanh toán. Biểu mẫu quản lý chưa tạo nhóm, cấp mã hoặc đăng đề thật; điểm làm thử không gửi cho giáo viên và không đồng bộ sang thiết bị khác. Không nhập mật khẩu hoặc thông tin học sinh thật vào demo.
 
 ### Giao diện học sinh
 
@@ -52,6 +53,8 @@ py -m unittest discover -s tests -v
 - `templates/`: mẫu giao diện.
 - `static/`: CSS, JavaScript và thư viện KaTeX lưu cục bộ.
 - `scripts/build_pages.py`: dựng 11 trang bằng dữ liệu mẫu, không dùng cơ sở dữ liệu.
+- `scripts/catalog_data.py`: danh mục và thông tin thẻ đề minh họa.
+- `static/images/`: ảnh bìa lưu cục bộ; nguồn ảnh được ghi trong `CREDITS.md`.
 - `index.html`, `demo/`: trang HTML được xuất để GitHub Pages phục vụ.
 - `docs/screenshots/`: ảnh giao diện.
 

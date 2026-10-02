@@ -4,6 +4,9 @@
   if (!banner) return;
   const config = JSON.parse(document.getElementById('preview-config').textContent);
   const status = document.getElementById('preview-status');
+  const backToTop = document.querySelector('.back-to-top');
+  backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+  window.addEventListener('scroll', () => { backToTop.hidden = window.scrollY < 240; }, {passive: true});
   const inDemo = location.pathname.includes('/demo/');
   const page = name => `${inDemo ? '' : 'demo/'}${name}.html`;
   const home = inDemo ? '../index.html' : 'index.html';

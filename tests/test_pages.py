@@ -3,6 +3,7 @@ import tempfile
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlsplit
 from scripts.build_pages import build, ROOT
 
 
@@ -38,7 +39,7 @@ class PagesExportTest(unittest.TestCase):
                     if url.startswith(('https://', '#')):
                         continue
                     self.assertFalse(url.startswith('/'), (page.name, url))
-                    resolved = (page.parent / url).resolve()
+                    resolved = (page.parent / urlsplit(url).path).resolve()
                     relative = resolved.relative_to(output.resolve())
                     target = ROOT / relative if relative.parts[0] == 'static' else resolved
                     self.assertTrue(target.is_file(), (page.name, url))

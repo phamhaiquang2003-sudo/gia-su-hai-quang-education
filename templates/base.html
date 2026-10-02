@@ -1,31 +1,28 @@
-<!doctype html>
+{% from 'icons.html' import icon %}<!doctype html>
 <html lang="vi">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#1b3751">
+  <meta name="theme-color" content="#ffffff">
   <title>{% block title %}Lớp học · Bài tập về nhà{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   {% if preview_mode %}<link rel="stylesheet" href="{{ url_for('static', filename='pages.css') }}"><script src="{{ url_for('static', filename='pages.js') }}" defer></script>{% endif %}
   {% block head_extra %}{% endblock %}
 </head>
-<body>
+<body class="education-site {{ 'catalog-page' if catalog_page else 'workspace-page' }}">
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✦</span><span>LỚP HỌC <small>GÓC BÀI TẬP</small></span></a>
-      <nav aria-label="Điều hướng">
-        <a href="{{ url_for('home') }}">Bài tập</a>
-        {% if teacher_logged_in %}<a href="{{ url_for('dashboard') }}">Trang giáo viên</a>
-        <form class="inline" action="{{ url_for('logout') }}" method="post"><input type="hidden" name="csrf" value="{{ csrf_token() }}"><button class="nav-button" type="submit">Đăng xuất</button></form>
-        {% elif student_logged_in %}<form class="inline" action="{{ url_for('student_logout') }}" method="post"><input type="hidden" name="csrf" value="{{ csrf_token() }}"><button class="nav-button" type="submit">Đăng xuất học sinh</button></form>
-        {% else %}<a href="{{ url_for('student_login') }}">Đăng nhập học sinh</a>{% endif %}
+      <a class="brand" href="{{ url_for('home') }}" aria-label="HQ Education — Gia sư Hải Quang"><span>HQ Education<small>GIA SƯ HẢI QUANG</small></span><span class="brand-star" aria-hidden="true">✱</span></a>
+      <nav class="subject-nav" aria-label="Môn học">
+        {% for subject in catalog_subjects %}<a href="{{ url_for('home') }}?mon={{ subject.key }}" data-subject-link="{{ subject.key }}" {% if catalog_page and subject.key == 'vat-ly' %}aria-current="page"{% endif %}>{{ subject.label }}</a>{% endfor %}
       </nav>
+      <a class="header-login" href="{{ url_for('dashboard') if teacher_logged_in else url_for('student_login') }}">{{ icon('user', 18) }}<span>{{ 'Giáo viên' if teacher_logged_in else 'Đăng nhập' }}</span></a>
     </div>
   </header>
   {% if preview_mode %}
   <section class="preview-bar" aria-label="Bản xem giao diện">
-    <div class="wrap"><div class="preview-intro"><strong>GIA SƯ HẢI QUANG <span>DEMO GIAO DIỆN</span></strong><p>Bản demo độc lập trên GitHub Pages. Các màn hình dùng dữ liệu mẫu; điểm làm thử được lưu trong phiên trình duyệt.</p></div>
-    <nav class="preview-nav" aria-label="Các màn hình dự án">{% for item in preview_navigation %}<a href="{{ item.href }}" {% if item.active %}aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}</nav>
+    <div class="wrap"><div class="preview-row"><p><span class="demo-label">DEMO GIAO DIỆN</span> Các đề và mức phí là dữ liệu minh họa. Làm thử đề mẫu 3 câu ngay trên trình duyệt.</p>
+    <details class="preview-tools"><summary>Khám phá giao diện {{ icon('chevron', 15) }}</summary><nav class="preview-nav" aria-label="Các màn hình dự án">{% for item in preview_navigation %}<a href="{{ item.href }}" {% if item.active %}aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}</nav></details></div>
     <div id="preview-status" role="status" aria-live="polite" hidden></div></div>
   </section>
   {% endif %}
@@ -35,6 +32,7 @@
     {% endwith %}
     {% block content %}{% endblock %}
   </main>
-  <footer class="site-footer wrap">Góc bài tập về nhà <span>·</span> Học mỗi ngày, tiến bộ từng chút.</footer>
+  <footer class="site-footer wrap"><a class="footer-brand" href="{{ url_for('home') }}">HQ Education ✱</a><span>Gia sư Hải Quang · Học mỗi ngày, tiến bộ từng chút.</span><a href="{{ url_for('dashboard') }}">Giao diện giáo viên {{ icon('arrow', 14) }}</a></footer>
+  <button class="back-to-top" type="button" aria-label="Lên đầu trang" hidden>{{ icon('up', 22) }}</button>
 </body>
 </html>

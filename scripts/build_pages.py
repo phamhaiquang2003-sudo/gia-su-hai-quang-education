@@ -10,6 +10,11 @@ from types import SimpleNamespace
 
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, select_autoescape
 
+if __package__:
+    from .catalog_data import CATALOG, SUBJECTS
+else:
+    from catalog_data import CATALOG, SUBJECTS
+
 ROOT = Path(__file__).resolve().parents[1]
 
 DEMO_QUIZ = [
@@ -86,13 +91,14 @@ def build(output):
     submitted = dict(id=1, student_name='Học sinh mẫu A', class_name='Lớp minh họa',
                      score=score, submitted_at='2026-10-02T09:00:00+07:00', title=assignment['title'])
     record = dict(id=1, name='Học sinh mẫu A', group_id=1, group_name='Lớp minh họa')
-    common = dict(preview_mode=True, groups=groups, assignments=[assignment], assignment=assignment,
+    common = dict(preview_mode=True, catalog_page=False, catalog_subjects=SUBJECTS,
+                  groups=groups, assignments=[assignment], assignment=assignment,
                   is_available=lambda item: bool(item['is_open']), csrf_token=lambda: 'public-demo',
                   get_flashed_messages=lambda **kwargs: [], max_score=2, questions=questions,
                   total_points=lambda config: sum(item['points'] for item in config),
                   config_for=lambda item: grading)
     pages = [
-        ('home.html', 'home', {}),
+        ('home.html', 'home', dict(catalog=CATALOG, catalog_page=True)),
         ('student_login.html', 'student_login', {}),
         ('auth.html', 'login', dict(initial=False)),
         ('dashboard.html', 'dashboard', {}),

@@ -1,20 +1,16 @@
-"""Render public GitHub Pages screens from the application's real templates.
+"""Render the standalone static GitHub Pages demo from Jinja templates.
 
-This exporter never imports app.py, reads the database or copies uploaded files.
-Only fictional data declared here is included in the public demo.
+Only fictional data declared here is included; no backend or database is needed.
 """
 import argparse
+import html as html_helpers
 import json
-import re
-import sys
 from pathlib import Path
 from types import SimpleNamespace
 
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, select_autoescape
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
-from quiz import score_quiz, total_points, validate_quiz
 
 DEMO_QUIZ = [
     {'type': 'mcq', 'prompt': r'Tính giá trị của \(\frac{1}{2}+\frac{1}{4}\).',
@@ -25,6 +21,40 @@ DEMO_QUIZ = [
     {'type': 'short', 'prompt': 'Một vật dao động điều hòa với chu kỳ T = 0,5 s. Tần số dao động (Hz) là bao nhiêu?',
      'correct': ['2', '2 Hz'], 'points': 0.75},
 ]
+
+
+def demo_content():
+    """Compile the three fixed sample questions and their example result."""
+    questions, grading, review = [], [], []
+    selected = ['B', ['D', 'S', 'D', ''], '2']
+    for number, sample in enumerate(DEMO_QUIZ, 1):
+        kind = sample['type']
+        question = dict(number=number, type=kind, content=html_helpers.escape(sample['prompt']), points=sample['points'])
+        rule = dict(type=kind, points=sample['points'], correct=sample['correct'])
+        chosen = selected[number - 1]
+        if kind == 'mcq':
+            question['options'] = [dict(key=key, content=html_helpers.escape(text))
+                                   for key, text in zip('ABCD', sample['options'])]
+            right = chosen == sample['correct']
+            awarded = sample['points'] if right else 0
+            chosen_text, correct_text = chosen, sample['correct']
+        elif kind == 'true_false':
+            question['statements'] = [html_helpers.escape(text) for text in sample['statements']]
+            rule['scheme'] = 'tf_4_1'
+            matches = sum(a == b for a, b in zip(chosen, sample['correct']))
+            right, awarded = matches == 4, [0, 0.1, 0.25, 0.5, 1][matches]
+            chosen_text = ', '.join(f'{"abcd"[i]}. {value or "—"}' for i, value in enumerate(chosen))
+            correct_text = ', '.join(f'{"abcd"[i]}. {value}' for i, value in enumerate(sample['correct']))
+        else:
+            question['max_length'] = 200
+            right = chosen in sample['correct']
+            awarded = sample['points'] if right else 0
+            chosen_text, correct_text = chosen, '; '.join(sample['correct'])
+        questions.append(question)
+        grading.append(rule)
+        review.append(dict(number=number, chosen=chosen_text, correct=correct_text, right=right,
+                           awarded=awarded, max_points=sample['points']))
+    return questions, grading, selected, review
 
 PAGE_MAP = {
     'home': 'index.html', 'student_login': 'demo/hoc-sinh.html', 'login': 'demo/dang-nhap.html',
@@ -43,7 +73,7 @@ PAGE_MAP = {
 
 
 def build(output):
-    questions, grading = validate_quiz(DEMO_QUIZ)
+    questions, grading, selected, review = demo_content()
     assignment = dict(id=1, title='Bài tập mẫu: Toán & dao động điều hòa',
                       description='Dữ liệu minh họa · 3 dạng câu hỏi · Tổng 2 điểm.', question_count=3,
                       duration_minutes=15, due_at='', filename='', answer_key='', group_id=1,
@@ -51,8 +81,7 @@ def build(output):
     groups = [dict(id=1, name='Lớp minh họa', student_count=2)]
     roster = [dict(id=1, name='Học sinh mẫu A', completed=1, average_percent=87.5),
               dict(id=2, name='Học sinh mẫu B', completed=0, average_percent=None)]
-    selected = ['B', ['D', 'S', 'D', ''], '2']
-    score, review = score_quiz(selected, grading)
+    score = round(sum(item['awarded'] for item in review), 2)
     roster[0]['average_percent'] = round(score / 2 * 100, 1)
     submitted = dict(id=1, student_name='Học sinh mẫu A', class_name='Lớp minh họa',
                      score=score, submitted_at='2026-10-02T09:00:00+07:00', title=assignment['title'])
@@ -60,7 +89,8 @@ def build(output):
     common = dict(preview_mode=True, groups=groups, assignments=[assignment], assignment=assignment,
                   is_available=lambda item: bool(item['is_open']), csrf_token=lambda: 'public-demo',
                   get_flashed_messages=lambda **kwargs: [], max_score=2, questions=questions,
-                  total_points=total_points, config_for=lambda item: grading)
+                  total_points=lambda config: sum(item['points'] for item in config),
+                  config_for=lambda item: grading)
     pages = [
         ('home.html', 'home', {}),
         ('student_login.html', 'student_login', {}),
@@ -104,8 +134,6 @@ def build(output):
                     preview_navigation=[dict(label=label, href=url_for(target), active=target == endpoint)
                                         for target, label in navigation])
         html = env.get_template(template).render(**data)
-        # The real exam script autosaves to Flask. The demo uses local browser state.
-        html = re.sub(r'<script src="[^"]*/exam\.js" defer></script>', '', html)
         if endpoint == 'receipt_page':
             html = html.replace('đã được gửi đến giáo viên.', 'đã được chấm thử trong bản demo.')
         payload = json.dumps(dict(grading=grading, total=2, exampleScore=score, title=assignment['title']), ensure_ascii=False)

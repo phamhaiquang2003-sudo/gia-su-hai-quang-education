@@ -151,16 +151,16 @@
     if (form.action.endsWith('/lam-bai.html')) { location.href = page('lam-bai'); return; }
     if (form.classList.contains('inline')) { location.href = page('hoc-sinh'); return; }
     if (form.id === 'quiz-editor') {
-      notify('Đã xem trước đề bạn vừa soạn. Đây là bản demo: để đăng bài cho lớp thật, hãy dùng website Flask đang chạy trên máy chủ.');
+      notify('Đã xem trước đề bạn vừa soạn. Đây là bản demo giao diện: đề chưa được đăng hoặc lưu vào một lớp học thật.');
       return;
     }
     if (form.querySelector('[name=name]')) {
       notify(form.closest('.panel')?.querySelector('h2')?.textContent.includes('học sinh') ?
         'Thao tác mẫu: mã minh họa là DEMO-HS. Bản demo không tạo tài khoản học sinh thật.' :
-        'Bạn đã thử biểu mẫu tạo nhóm. Dùng bản Flask để lưu nhóm lớp thật.');
+        'Bạn đã thử biểu mẫu tạo nhóm. Bản demo chưa lưu nhóm lớp thật.');
       return;
     }
-    notify('Bạn đang xem giao diện quản lý. Thao tác này chỉ được lưu khi dùng bản Flask; dữ liệu minh họa vẫn giữ nguyên.');
+    notify('Bạn đang xem giao diện quản lý mẫu. Bản demo chưa lưu thao tác quản lý này; dữ liệu minh họa vẫn giữ nguyên.');
   });
 
   document.querySelectorAll('a').forEach(link => {

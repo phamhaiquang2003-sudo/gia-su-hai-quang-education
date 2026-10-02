@@ -24,7 +24,7 @@
   </header>
   {% if preview_mode %}
   <section class="preview-bar" aria-label="Bản xem giao diện">
-    <div class="wrap"><div class="preview-intro"><strong>GIA SƯ HẢI QUANG <span>DEMO GIAO DIỆN</span></strong><p>Dùng dữ liệu mẫu để khám phá các màn hình. Dữ liệu lớp thật được lưu trên máy chủ Flask.</p></div>
+    <div class="wrap"><div class="preview-intro"><strong>GIA SƯ HẢI QUANG <span>DEMO GIAO DIỆN</span></strong><p>Bản demo độc lập trên GitHub Pages. Các màn hình dùng dữ liệu mẫu; điểm làm thử được lưu trong phiên trình duyệt.</p></div>
     <nav class="preview-nav" aria-label="Các màn hình dự án">{% for item in preview_navigation %}<a href="{{ item.href }}" {% if item.active %}aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}</nav>
     <div id="preview-status" role="status" aria-live="polite" hidden></div></div>
   </section>

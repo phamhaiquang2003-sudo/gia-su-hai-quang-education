@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b3751">
+  <title>Tạo bài tập · Lớp học</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../static/pages.css"><script src="../static/pages.js" defer></script>
+  <link rel="stylesheet" href="../static/vendor/katex/katex.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="../index.html"><span class="brand-mark">✦</span><span>LỚP HỌC <small>GÓC BÀI TẬP</small></span></a>
+      <nav aria-label="Điều hướng">
+        <a href="../index.html">Bài tập</a>
+        <a href="../demo/giao-vien.html">Trang giáo viên</a>
+        <form class="inline" action="../index.html" method="post"><input type="hidden" name="csrf" value="public-demo"><button class="nav-button" type="submit">Đăng xuất</button></form>
+
+      </nav>
+    </div>
+  </header>
+
+  <section class="preview-bar" aria-label="Bản xem giao diện">
+    <div class="wrap"><div class="preview-intro"><strong>GIA SƯ HẢI QUANG <span>DEMO GIAO DIỆN</span></strong><p>Dùng dữ liệu mẫu để khám phá các màn hình. Dữ liệu lớp thật được lưu trên máy chủ Flask.</p></div>
+    <nav class="preview-nav" aria-label="Các màn hình dự án"><a href="../index.html" >Bài tập</a><a href="../demo/hoc-sinh.html" >Đăng nhập HS</a><a href="../demo/dang-nhap.html" >Đăng nhập GV</a><a href="../demo/giao-vien.html" >Giáo viên</a><a href="../demo/nhom.html" >Quản lý lớp</a><a href="../demo/soan-de.html" aria-current="page">Soạn đề</a><a href="../demo/lam-bai.html" >Làm bài</a><a href="../demo/ket-qua.html" >Kết quả</a></nav>
+    <div id="preview-status" role="status" aria-live="polite" hidden></div></div>
+  </section>
+
+  <main class="wrap main">
+
+
+
+
+<a class="back" href="../demo/giao-vien.html">← Trang giáo viên</a>
+<div class="page-heading"><div><span class="eyebrow">BÀI TẬP MỚI</span><h1>Giao bài cho lớp</h1><p>Chọn nhóm môn/lớp; thêm từng câu và điểm tối đa của câu.</p></div></div>
+<form class="panel editor" method="post" enctype="multipart/form-data" id="quiz-editor"><input type="hidden" name="csrf" value="public-demo"><input type="hidden" name="quiz_json" id="quiz-json">
+  <div class="form-section"><h2>01 / Thông tin bài tập</h2>
+    <label>Nhóm môn/lớp <select name="group_id" required><option value="1" >Lớp minh họa</option></select></label>
+    <label>Tên bài tập <input type="text" name="title" maxlength="150" value="Đề minh họa của bạn" required></label>
+    <label>Mô tả <textarea name="description" rows="2" maxlength="1000"></textarea></label>
+    <label>PDF tham khảo (không bắt buộc, chỉ giáo viên xem; PDF và ảnh trong cùng bài tối đa 20 MB) <input type="file" name="pdf" accept="application/pdf,.pdf"></label>
+    <div class="identity-grid"><label>Thời gian làm bài (phút) <input type="number" name="duration_minutes" min="1" max="180" value="15" required></label><label>Hạn cuối để bắt đầu (giờ Việt Nam) <input type="datetime-local" name="due_at" value=""></label></div>
+  </div>
+  <div class="form-section"><h2>02 / Câu hỏi & điểm</h2><p>Bấm <strong>∑ Công thức</strong> cạnh ô muốn chèn (câu hỏi, từng phương án, ý đúng/sai hoặc đáp án ngắn), tìm ký hiệu và chọn công thức. Có thể sửa các chữ a, b, x sau khi chèn và mở “Xem trước” để kiểm tra. Chọn hoặc dán ảnh vào mỗi câu (tối đa 3 ảnh). Câu đúng/sai bắt buộc 4 ý, tối đa 1 điểm: đúng 1 ý được 0,1; 2 ý 0,25; 3 ý 0,5; 4 ý 1.</p><div id="question-editor"></div><button class="button ghost" type="button" id="add-question">+ Thêm câu hỏi</button></div>
+  <div class="form-actions"><a class="button ghost" href="../demo/giao-vien.html">Hủy</a><button class="button primary" type="submit">Đăng bài tập →</button></div>
+</form>
+<dialog class="latex-picker" id="latex-picker" aria-labelledby="latex-picker-title">
+  <div class="latex-picker-header"><div><span class="eyebrow">SOẠN ĐỀ TOÁN</span><h2 id="latex-picker-title">Kho công thức LaTeX</h2></div><button class="button ghost latex-close" type="button" aria-label="Đóng kho công thức">✕</button></div>
+  <label>Tìm tên hoặc mã LaTeX <input id="latex-search" type="search" placeholder="Ví dụ: phân số, tích phân, \sqrt, vectơ" autocomplete="off"></label>
+  <div class="latex-tabs" role="group" aria-label="Nhóm công thức"></div>
+  <div class="latex-results"></div>
+  <p class="hint">Chọn công thức để chèn vào ô đang soạn, rồi thay các ký tự mẫu. Tham khảo: <a href="https://www.mathvn.com/2021/09/latex-co-ban-cach-go-cac-cong-thuc-ki.html" target="_blank" rel="noopener">Danh mục LaTeX của MathVN ↗</a></p>
+</dialog>
+<script id="quiz-initial" type="application/json">"[{\"type\": \"mcq\", \"prompt\": \"T\\u00ednh gi\\u00e1 tr\\u1ecb c\\u1ee7a \\\\(\\\\frac{1}{2}+\\\\frac{1}{4}\\\\).\", \"options\": [\"\\\\(\\\\frac{1}{4}\\\\)\", \"\\\\(\\\\frac{3}{4}\\\\)\", \"1\", \"2\"], \"correct\": \"B\", \"points\": 0.25}, {\"type\": \"true_false\", \"prompt\": \"X\\u00e1c \\u0111\\u1ecbnh t\\u00ednh \\u0111\\u00fang/sai c\\u1ee7a c\\u00e1c kh\\u1eb3ng \\u0111\\u1ecbnh sau.\", \"statements\": [\"\\\\(2^3=8\\\\)\", \"\\\\(\\\\sqrt{9}=4\\\\)\", \"\\\\(\\\\frac{1}{2}=0{,}5\\\\)\", \"\\\\(3+4=6\\\\)\"], \"correct\": [\"D\", \"S\", \"D\", \"S\"], \"points\": 1}, {\"type\": \"short\", \"prompt\": \"M\\u1ed9t v\\u1eadt dao \\u0111\\u1ed9ng \\u0111i\\u1ec1u h\\u00f2a v\\u1edbi chu k\\u1ef3 T = 0,5 s. T\\u1ea7n s\\u1ed1 dao \\u0111\\u1ed9ng (Hz) l\\u00e0 bao nhi\\u00eau?\", \"correct\": [\"2\", \"2 Hz\"], \"points\": 0.75}]"</script>
+<script src="../static/vendor/katex/katex.min.js" defer></script>
+<script src="../static/vendor/katex/auto-render.min.js" defer></script>
+<script src="../static/math.js" defer></script>
+<script src="../static/latex-catalog.js" defer></script>
+<script src="../static/editor.js" defer></script>
+<script src="../static/latex-picker.js" defer></script>
+
+  </main>
+  <footer class="site-footer wrap">Góc bài tập về nhà <span>·</span> Học mỗi ngày, tiến bộ từng chút.</footer>
+<script id="preview-config" type="application/json">{"grading": [{"type": "mcq", "points": 0.25, "correct": "B"}, {"type": "true_false", "points": 1.0, "correct": ["D", "S", "D", "S"], "scheme": "tf_4_1"}, {"type": "short", "points": 0.75, "correct": ["2", "2 Hz"]}], "total": 2, "exampleScore": 1.5, "title": "Bài tập mẫu: Toán & dao động điều hòa"}</script>
+</body>
+</html>

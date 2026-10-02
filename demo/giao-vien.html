@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b3751">
+  <title>Trang giáo viên · Lớp học</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../static/pages.css"><script src="../static/pages.js" defer></script>
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="../index.html"><span class="brand-mark">✦</span><span>LỚP HỌC <small>GÓC BÀI TẬP</small></span></a>
+      <nav aria-label="Điều hướng">
+        <a href="../index.html">Bài tập</a>
+        <a href="../demo/giao-vien.html">Trang giáo viên</a>
+        <form class="inline" action="../index.html" method="post"><input type="hidden" name="csrf" value="public-demo"><button class="nav-button" type="submit">Đăng xuất</button></form>
+
+      </nav>
+    </div>
+  </header>
+
+  <section class="preview-bar" aria-label="Bản xem giao diện">
+    <div class="wrap"><div class="preview-intro"><strong>GIA SƯ HẢI QUANG <span>DEMO GIAO DIỆN</span></strong><p>Dùng dữ liệu mẫu để khám phá các màn hình. Dữ liệu lớp thật được lưu trên máy chủ Flask.</p></div>
+    <nav class="preview-nav" aria-label="Các màn hình dự án"><a href="../index.html" >Bài tập</a><a href="../demo/hoc-sinh.html" >Đăng nhập HS</a><a href="../demo/dang-nhap.html" >Đăng nhập GV</a><a href="../demo/giao-vien.html" aria-current="page">Giáo viên</a><a href="../demo/nhom.html" >Quản lý lớp</a><a href="../demo/soan-de.html" >Soạn đề</a><a href="../demo/lam-bai.html" >Làm bài</a><a href="../demo/ket-qua.html" >Kết quả</a></nav>
+    <div id="preview-status" role="status" aria-live="polite" hidden></div></div>
+  </section>
+
+  <main class="wrap main">
+
+
+
+
+<div class="page-heading"><div><span class="eyebrow">KHÔNG GIAN GIÁO VIÊN</span><h1>Quản lý bài tập</h1><p>Giao bài, xem bài nộp và theo dõi tiến độ của lớp.</p></div><a class="button primary" href="../demo/soan-de.html">+ Tạo bài tập</a></div>
+<section class="panel"><h2>Nhóm môn/lớp</h2><form method="post" action="../demo/giao-vien.html"><input type="hidden" name="csrf" value="public-demo"><div class="identity-grid"><label>Tên nhóm mới <input name="name" maxlength="60" required placeholder="Ví dụ: Toán 9, Lý 12"></label><button class="button primary" type="submit">+ Tạo nhóm</button></div></form><div class="group-links"><a class="button ghost" href="../demo/nhom.html">Lớp minh họa · 2 học sinh →</a></div></section>
+<div class="section-heading"><h2>Bài tập đã đăng</h2><span class="count">1 bài tập</span></div>
+<div class="teacher-list">
+  <article class="teacher-item"><div><div class="item-top"><span class="badge open">Đang nhận bài</span><span class="hint">Lớp minh họa · Bài #1</span></div><h3>Bài tập mẫu: Toán &amp; dao động điều hòa</h3><p>3 câu hỏi · 15 phút · 1 lượt nộp · Hạn không giới hạn</p></div><a class="button ghost" href="../demo/quan-ly-bai.html">Quản lý ↗</a></article>
+
+</div>
+
+  </main>
+  <footer class="site-footer wrap">Góc bài tập về nhà <span>·</span> Học mỗi ngày, tiến bộ từng chút.</footer>
+<script id="preview-config" type="application/json">{"grading": [{"type": "mcq", "points": 0.25, "correct": "B"}, {"type": "true_false", "points": 1.0, "correct": ["D", "S", "D", "S"], "scheme": "tf_4_1"}, {"type": "short", "points": 0.75, "correct": ["2", "2 Hz"]}], "total": 2, "exampleScore": 1.5, "title": "Bài tập mẫu: Toán & dao động điều hòa"}</script>
+</body>
+</html>

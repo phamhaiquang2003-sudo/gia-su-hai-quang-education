@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b3751">
+  <title>Đang làm: Bài tập mẫu: Toán &amp; dao động điều hòa</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../static/pages.css"><script src="../static/pages.js" defer></script>
+  <link rel="stylesheet" href="../static/vendor/katex/katex.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="../index.html"><span class="brand-mark">✦</span><span>LỚP HỌC <small>GÓC BÀI TẬP</small></span></a>
+      <nav aria-label="Điều hướng">
+        <a href="../index.html">Bài tập</a>
+        <form class="inline" action="../demo/hoc-sinh.html" method="post"><input type="hidden" name="csrf" value="public-demo"><button class="nav-button" type="submit">Đăng xuất học sinh</button></form>
+
+      </nav>
+    </div>
+  </header>
+
+  <section class="preview-bar" aria-label="Bản xem giao diện">
+    <div class="wrap"><div class="preview-intro"><strong>GIA SƯ HẢI QUANG <span>DEMO GIAO DIỆN</span></strong><p>Dùng dữ liệu mẫu để khám phá các màn hình. Dữ liệu lớp thật được lưu trên máy chủ Flask.</p></div>
+    <nav class="preview-nav" aria-label="Các màn hình dự án"><a href="../index.html" >Bài tập</a><a href="../demo/hoc-sinh.html" >Đăng nhập HS</a><a href="../demo/dang-nhap.html" >Đăng nhập GV</a><a href="../demo/giao-vien.html" >Giáo viên</a><a href="../demo/nhom.html" >Quản lý lớp</a><a href="../demo/soan-de.html" >Soạn đề</a><a href="../demo/lam-bai.html" aria-current="page">Làm bài</a><a href="../demo/ket-qua.html" >Kết quả</a></nav>
+    <div id="preview-status" role="status" aria-live="polite" hidden></div></div>
+  </section>
+
+  <main class="wrap main">
+
+
+
+
+<div class="exam-top"><div><span class="eyebrow">BÀI LÀM CỦA HỌC SINH MẪU A · Lớp minh họa</span><h1>Bài tập mẫu: Toán &amp; dao động điều hòa</h1><p>Có thể nộp bài bất kỳ lúc nào, kể cả khi chưa trả lời hết. Câu bỏ trống nhận 0 điểm.</p></div></div>
+<div class="exam-toolbar"><div class="exam-progress"><span>Đã trả lời <strong id="answered-count">0</strong>/3 câu</span><div class="progress-track"><div id="progress-fill"></div></div></div><div class="timer" id="countdown" data-remaining="900" role="timer" aria-label="Thời gian làm bài còn lại"><span>CÒN LẠI</span><strong id="timer-text">--:--</strong></div></div>
+<form action="../demo/ket-qua.html" method="post" class="exam-form" id="exam-form" data-question-count="3" data-save-url="../demo/lam-bai.html" data-draft="">
+  <input type="hidden" name="csrf" value="public-demo"><input type="hidden" name="auto" id="auto-submit" value="">
+  <div class="question-list">
+
+
+
+      <fieldset class="full-question"><legend>Câu 1 · 0.25 điểm</legend><div class="question-text">Tính giá trị của \(\frac{1}{2}+\frac{1}{4}\).</div>
+
+
+        <div class="answer-options"><label class="answer-option"><input type="radio" name="q1" value="A" ><span class="answer-letter">A</span><span class="answer-content">\(\frac{1}{4}\)</span></label><label class="answer-option"><input type="radio" name="q1" value="B" ><span class="answer-letter">B</span><span class="answer-content">\(\frac{3}{4}\)</span></label><label class="answer-option"><input type="radio" name="q1" value="C" ><span class="answer-letter">C</span><span class="answer-content">1</span></label><label class="answer-option"><input type="radio" name="q1" value="D" ><span class="answer-letter">D</span><span class="answer-content">2</span></label></div>
+
+      </fieldset>
+
+
+
+      <fieldset class="full-question"><legend>Câu 2 · 1.0 điểm</legend><div class="question-text">Xác định tính đúng/sai của các khẳng định sau.</div>
+
+
+        <div class="truth-row"><span>a. \(2^3=8\)</span><label><input type="radio" name="q2_0" value="D" > Đúng</label><label><input type="radio" name="q2_0" value="S" > Sai</label></div><div class="truth-row"><span>b. \(\sqrt{9}=4\)</span><label><input type="radio" name="q2_1" value="D" > Đúng</label><label><input type="radio" name="q2_1" value="S" > Sai</label></div><div class="truth-row"><span>c. \(\frac{1}{2}=0{,}5\)</span><label><input type="radio" name="q2_2" value="D" > Đúng</label><label><input type="radio" name="q2_2" value="S" > Sai</label></div><div class="truth-row"><span>d. \(3+4=6\)</span><label><input type="radio" name="q2_3" value="D" > Đúng</label><label><input type="radio" name="q2_3" value="S" > Sai</label></div>
+
+      </fieldset>
+
+
+
+      <fieldset class="full-question"><legend>Câu 3 · 0.75 điểm</legend><div class="question-text">Một vật dao động điều hòa với chu kỳ T = 0,5 s. Tần số dao động (Hz) là bao nhiêu?</div>
+
+
+        <label>Trả lời ngắn <input type="text" name="q3" maxlength="200" value="" autocomplete="off" placeholder="Nhập đáp án ngắn"></label>
+
+      </fieldset>
+
+  </div>
+  <div class="submit-footer"><p>Các câu chưa làm sẽ được tính 0 điểm. Nộp bài là hoàn tất, không thể sửa lại.</p><button class="button primary" type="submit" id="submit-button">Nộp bài & xem điểm →</button></div>
+</form>
+<script src="../static/vendor/katex/katex.min.js" defer></script>
+<script src="../static/vendor/katex/auto-render.min.js" defer></script>
+<script src="../static/math.js" defer></script>
+
+
+  </main>
+  <footer class="site-footer wrap">Góc bài tập về nhà <span>·</span> Học mỗi ngày, tiến bộ từng chút.</footer>
+<script id="preview-config" type="application/json">{"grading": [{"type": "mcq", "points": 0.25, "correct": "B"}, {"type": "true_false", "points": 1.0, "correct": ["D", "S", "D", "S"], "scheme": "tf_4_1"}, {"type": "short", "points": 0.75, "correct": ["2", "2 Hz"]}], "total": 2, "exampleScore": 1.5, "title": "Bài tập mẫu: Toán & dao động điều hòa"}</script>
+</body>
+</html>

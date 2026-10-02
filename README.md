@@ -2,6 +2,26 @@
 
 Website giao bài tập về nhà cho Gia sư Hải Quang.
 
+## Xem giao diện ngay trên GitHub Pages
+
+**[Mở website demo →](https://phamhaiquang2003-sudo.github.io/gia-su-hai-quang-education/)**
+
+Trang demo hiển thị giao diện thật của dự án: bài tập học sinh, đăng nhập, trang giáo viên, quản lý lớp, theo dõi tiến độ, soạn đề với kho LaTeX/dán ảnh, làm bài có đồng hồ và xem kết quả. Dùng thanh điều hướng **DEMO GIAO DIỆN** để chuyển màn hình. Có thể làm thử đề mẫu và xem điểm được tính ngay trên trình duyệt.
+
+GitHub Pages phục vụ bản giao diện tĩnh với dữ liệu minh họa. Đăng nhóm, cấp mã và lưu bài làm của lớp thật dùng ứng dụng Flask theo hướng dẫn bên dưới. Không nhập mật khẩu hoặc thông tin học sinh thật vào bản demo.
+
+Các trang tĩnh được tạo từ chính `templates/` bằng `py scripts/build_pages.py`; sau khi sửa giao diện, chạy lại lệnh này rồi commit `index.html` và `demo/`. GitHub Pages dùng **Deploy from a branch → main → / (root)**; tệp `.nojekyll` và `index.html` giúp mở giao diện thay vì dựng README thành trang chủ.
+
+### Giao diện học sinh
+
+![Trang bài tập học sinh](docs/screenshots/hoc-sinh.png)
+
+### Giao diện giáo viên
+
+![Trang quản lý bài tập của giáo viên](docs/screenshots/giao-vien.png)
+
+[Xem trang soạn đề](https://phamhaiquang2003-sudo.github.io/gia-su-hai-quang-education/demo/soan-de.html) · [Làm thử đề mẫu](https://phamhaiquang2003-sudo.github.io/gia-su-hai-quang-education/demo/lam-bai.html)
+
 Website giao bài trắc nghiệm A–D, đúng/sai và trả lời ngắn. Giáo viên đặt điểm cho câu chọn đáp án/trả lời ngắn và thời gian làm bài; câu đúng/sai mới luôn có bốn ý, tối đa 1 điểm. Học sinh có thể nộp sớm dù chưa trả lời hết; hết giờ hệ thống chấm câu trả lời đã lưu. **PDF chỉ giáo viên xem được.**
 
 ## Chạy trên máy tính Windows

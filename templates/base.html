@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#1b3751">
   <title>{% block title %}Lớp học · Bài tập về nhà{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  {% if preview_mode %}<link rel="stylesheet" href="{{ url_for('static', filename='pages.css') }}"><script src="{{ url_for('static', filename='pages.js') }}" defer></script>{% endif %}
   {% block head_extra %}{% endblock %}
 </head>
 <body>
@@ -21,6 +22,13 @@
       </nav>
     </div>
   </header>
+  {% if preview_mode %}
+  <section class="preview-bar" aria-label="Bản xem giao diện">
+    <div class="wrap"><div class="preview-intro"><strong>GIA SƯ HẢI QUANG <span>DEMO GIAO DIỆN</span></strong><p>Dùng dữ liệu mẫu để khám phá các màn hình. Dữ liệu lớp thật được lưu trên máy chủ Flask.</p></div>
+    <nav class="preview-nav" aria-label="Các màn hình dự án">{% for item in preview_navigation %}<a href="{{ item.href }}" {% if item.active %}aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}</nav>
+    <div id="preview-status" role="status" aria-live="polite" hidden></div></div>
+  </section>
+  {% endif %}
   <main class="wrap main">
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% for category, message in messages %}<div class="alert {{ category }}" role="alert">{{ message }}</div>{% endfor %}

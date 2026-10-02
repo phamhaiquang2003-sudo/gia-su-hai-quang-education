@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b3751">
+  <title>Đăng nhập học sinh</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../static/pages.css"><script src="../static/pages.js" defer></script>
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="../index.html"><span class="brand-mark">✦</span><span>LỚP HỌC <small>GÓC BÀI TẬP</small></span></a>
+      <nav aria-label="Điều hướng">
+        <a href="../index.html">Bài tập</a>
+        <a href="../demo/hoc-sinh.html">Đăng nhập học sinh</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="preview-bar" aria-label="Bản xem giao diện">
+    <div class="wrap"><div class="preview-intro"><strong>GIA SƯ HẢI QUANG <span>DEMO GIAO DIỆN</span></strong><p>Dùng dữ liệu mẫu để khám phá các màn hình. Dữ liệu lớp thật được lưu trên máy chủ Flask.</p></div>
+    <nav class="preview-nav" aria-label="Các màn hình dự án"><a href="../index.html" >Bài tập</a><a href="../demo/hoc-sinh.html" aria-current="page">Đăng nhập HS</a><a href="../demo/dang-nhap.html" >Đăng nhập GV</a><a href="../demo/giao-vien.html" >Giáo viên</a><a href="../demo/nhom.html" >Quản lý lớp</a><a href="../demo/soan-de.html" >Soạn đề</a><a href="../demo/lam-bai.html" >Làm bài</a><a href="../demo/ket-qua.html" >Kết quả</a></nav>
+    <div id="preview-status" role="status" aria-live="polite" hidden></div></div>
+  </section>
+
+  <main class="wrap main">
+
+
+
+    <section class="panel start-panel"><span class="eyebrow">HỌC SINH</span><h1>Đăng nhập bằng mã</h1><p>Nhập mã riêng do giáo viên cấp để xem bài tập của nhóm và theo dõi kết quả.</p><form method="post"><input type="hidden" name="csrf" value="public-demo"><label>Mã học sinh <input name="code" maxlength="32" autocomplete="off" required placeholder="HS-..."></label><button class="button primary" type="submit">Vào lớp học →</button></form></section>
+  </main>
+  <footer class="site-footer wrap">Góc bài tập về nhà <span>·</span> Học mỗi ngày, tiến bộ từng chút.</footer>
+<script id="preview-config" type="application/json">{"grading": [{"type": "mcq", "points": 0.25, "correct": "B"}, {"type": "true_false", "points": 1.0, "correct": ["D", "S", "D", "S"], "scheme": "tf_4_1"}, {"type": "short", "points": 0.75, "correct": ["2", "2 Hz"]}], "total": 2, "exampleScore": 1.5, "title": "Bài tập mẫu: Toán & dao động điều hòa"}</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b3751">
+  <title>Nộp bài thành công</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../static/pages.css"><script src="../static/pages.js" defer></script>
+  <link rel="stylesheet" href="../static/vendor/katex/katex.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="../index.html"><span class="brand-mark">✦</span><span>LỚP HỌC <small>GÓC BÀI TẬP</small></span></a>
+      <nav aria-label="Điều hướng">
+        <a href="../index.html">Bài tập</a>
+        <form class="inline" action="../demo/hoc-sinh.html" method="post"><input type="hidden" name="csrf" value="public-demo"><button class="nav-button" type="submit">Đăng xuất học sinh</button></form>
+
+      </nav>
+    </div>
+  </header>
+
+  <section class="preview-bar" aria-label="Bản xem giao diện">
+    <div class="wrap"><div class="preview-intro"><strong>GIA SƯ HẢI QUANG <span>DEMO GIAO DIỆN</span></strong><p>Dùng dữ liệu mẫu để khám phá các màn hình. Dữ liệu lớp thật được lưu trên máy chủ Flask.</p></div>
+    <nav class="preview-nav" aria-label="Các màn hình dự án"><a href="../index.html" >Bài tập</a><a href="../demo/hoc-sinh.html" >Đăng nhập HS</a><a href="../demo/dang-nhap.html" >Đăng nhập GV</a><a href="../demo/giao-vien.html" >Giáo viên</a><a href="../demo/nhom.html" >Quản lý lớp</a><a href="../demo/soan-de.html" >Soạn đề</a><a href="../demo/lam-bai.html" >Làm bài</a><a href="../demo/ket-qua.html" aria-current="page">Kết quả</a></nav>
+    <div id="preview-status" role="status" aria-live="polite" hidden></div></div>
+  </section>
+
+  <main class="wrap main">
+
+
+
+
+<section class="result-card"><div class="result-icon">✓</div><span class="eyebrow">ĐÃ GHI NHẬN</span><h1>Nộp bài thành công!</h1><p>Bài làm của <strong>Học sinh mẫu A</strong> · Lớp minh họa đã được chấm thử trong bản demo.</p><div class="score-highlight"><strong>1.5/2</strong><span>điểm đạt được</span></div><div class="receipt-details"><div><span>Bài tập</span><strong>Bài tập mẫu: Toán &amp; dao động điều hòa</strong></div><div><span>Thời gian nộp</span><strong>2026-10-02 · 09:00 (giờ Việt Nam)</strong></div></div><a class="button primary" href="../index.html">Về danh sách bài tập</a></section>
+<section class="panel review-panel"><div class="panel-heading"><div><span class="eyebrow">CHI TIẾT BÀI LÀM</span><h2>Đối chiếu từng câu</h2></div></div><div class="review-grid"><div class="review-item right"><strong>Câu 1</strong><span>Em chọn <b>B</b></span><span>Đáp án <b>B</b></span><span class="review-status">0.25 / 0.25 điểm</span></div><div class="review-item wrong"><strong>Câu 2</strong><span>Em chọn <b>a. D, b. S, c. D, d. —</b></span><span>Đáp án <b>a. D, b. S, c. D, d. S</b></span><span class="review-status">0.5 / 1.0 điểm</span></div><div class="review-item right"><strong>Câu 3</strong><span>Em chọn <b>2</b></span><span>Đáp án <b>2; 2 Hz</b></span><span class="review-status">0.75 / 0.75 điểm</span></div></div></section>
+<script src="../static/vendor/katex/katex.min.js" defer></script>
+<script src="../static/vendor/katex/auto-render.min.js" defer></script>
+<script src="../static/math.js" defer></script>
+
+  </main>
+  <footer class="site-footer wrap">Góc bài tập về nhà <span>·</span> Học mỗi ngày, tiến bộ từng chút.</footer>
+<script id="preview-config" type="application/json">{"grading": [{"type": "mcq", "points": 0.25, "correct": "B"}, {"type": "true_false", "points": 1.0, "correct": ["D", "S", "D", "S"], "scheme": "tf_4_1"}, {"type": "short", "points": 0.75, "correct": ["2", "2 Hz"]}], "total": 2, "exampleScore": 1.5, "title": "Bài tập mẫu: Toán & dao động điều hòa"}</script>
+</body>
+</html>

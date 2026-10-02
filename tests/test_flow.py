@@ -23,8 +23,9 @@ class FlowTest(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory(prefix="homework-v2-")
         self.root = Path(self.tmp.name)
         shutil.copy2(SOURCE / "app.py", self.root / "app.py")
-        for folder in ("templates", "static", "questions"):
+        for folder in ("templates", "static"):
             shutil.copytree(SOURCE / folder, self.root / folder)
+        (self.root / "questions").mkdir()
         sample_questions = self.root / "questions" / "btap1.json"
         if not sample_questions.exists():
             sample_questions.write_text(json.dumps([

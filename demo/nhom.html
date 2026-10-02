@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b3751">
+  <title>Lớp minh họa · Trang giáo viên</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../static/pages.css"><script src="../static/pages.js" defer></script>
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="../index.html"><span class="brand-mark">✦</span><span>LỚP HỌC <small>GÓC BÀI TẬP</small></span></a>
+      <nav aria-label="Điều hướng">
+        <a href="../index.html">Bài tập</a>
+        <a href="../demo/giao-vien.html">Trang giáo viên</a>
+        <form class="inline" action="../index.html" method="post"><input type="hidden" name="csrf" value="public-demo"><button class="nav-button" type="submit">Đăng xuất</button></form>
+
+      </nav>
+    </div>
+  </header>
+
+  <section class="preview-bar" aria-label="Bản xem giao diện">
+    <div class="wrap"><div class="preview-intro"><strong>GIA SƯ HẢI QUANG <span>DEMO GIAO DIỆN</span></strong><p>Dùng dữ liệu mẫu để khám phá các màn hình. Dữ liệu lớp thật được lưu trên máy chủ Flask.</p></div>
+    <nav class="preview-nav" aria-label="Các màn hình dự án"><a href="../index.html" >Bài tập</a><a href="../demo/hoc-sinh.html" >Đăng nhập HS</a><a href="../demo/dang-nhap.html" >Đăng nhập GV</a><a href="../demo/giao-vien.html" >Giáo viên</a><a href="../demo/nhom.html" aria-current="page">Quản lý lớp</a><a href="../demo/soan-de.html" >Soạn đề</a><a href="../demo/lam-bai.html" >Làm bài</a><a href="../demo/ket-qua.html" >Kết quả</a></nav>
+    <div id="preview-status" role="status" aria-live="polite" hidden></div></div>
+  </section>
+
+  <main class="wrap main">
+
+
+
+
+<a class="back" href="../demo/giao-vien.html">← Trang giáo viên</a><div class="page-heading"><div><span class="eyebrow">NHÓM MÔN/LỚP</span><h1>Lớp minh họa</h1><p>2 học sinh · 1 bài tập</p></div></div>
+
+<section class="panel"><h2>Thêm học sinh</h2><form method="post" action="../demo/nhom.html"><input type="hidden" name="csrf" value="public-demo"><label>Họ tên học sinh <input name="name" maxlength="100" minlength="2" required></label><button class="button primary" type="submit">Cấp mã đăng nhập</button></form></section>
+<section class="panel submissions"><div class="panel-heading"><h2>Danh sách học sinh</h2></div><div class="table-scroll"><table><thead><tr><th>Học sinh</th><th>Mã theo dõi</th><th>Đã nộp</th><th>Điểm TB (%)</th><th>Quản lý</th></tr></thead><tbody><tr><td><a href="../demo/tien-do.html">Học sinh mẫu A →</a></td><td>HS#1</td><td>1 bài</td><td>75.0</td><td><div class="row-actions"><form method="post" action="../demo/nhom.html" onsubmit="return confirm('Đổi mã sẽ vô hiệu hóa mã cũ. Tiếp tục?')"><input type="hidden" name="csrf" value="public-demo"><button class="button ghost" type="submit">Cấp lại mã</button></form><form method="post" action="../demo/nhom.html" onsubmit="return confirm('Xóa học sinh này? Mã đăng nhập, lượt làm bài và kết quả của em sẽ bị xóa. Không thể hoàn tác.')"><input type="hidden" name="csrf" value="public-demo"><button class="button danger" type="submit">Xóa</button></form></div></td></tr><tr><td><a href="../demo/tien-do.html">Học sinh mẫu B →</a></td><td>HS#2</td><td>0 bài</td><td>—</td><td><div class="row-actions"><form method="post" action="../demo/nhom.html" onsubmit="return confirm('Đổi mã sẽ vô hiệu hóa mã cũ. Tiếp tục?')"><input type="hidden" name="csrf" value="public-demo"><button class="button ghost" type="submit">Cấp lại mã</button></form><form method="post" action="../demo/nhom.html" onsubmit="return confirm('Xóa học sinh này? Mã đăng nhập, lượt làm bài và kết quả của em sẽ bị xóa. Không thể hoàn tác.')"><input type="hidden" name="csrf" value="public-demo"><button class="button danger" type="submit">Xóa</button></form></div></td></tr></tbody></table></div></section>
+<section class="panel"><h2>Bài tập của nhóm</h2><p><a href="../demo/quan-ly-bai.html">Bài tập mẫu: Toán &amp; dao động điều hòa</a></p></section>
+<section class="panel danger-zone"><h2>Xóa nhóm môn/lớp</h2><p>Xóa cả 2 học sinh, 1 bài tập trong nhóm và các bài làm, kết quả liên quan. Không thể hoàn tác.</p><form method="post" action="../demo/giao-vien.html" onsubmit="return confirm('Xóa toàn bộ nhóm cùng học sinh, bài tập và kết quả? Không thể hoàn tác.')"><input type="hidden" name="csrf" value="public-demo"><button class="button danger" type="submit">Xóa nhóm Lớp minh họa</button></form></section>
+
+  </main>
+  <footer class="site-footer wrap">Góc bài tập về nhà <span>·</span> Học mỗi ngày, tiến bộ từng chút.</footer>
+<script id="preview-config" type="application/json">{"grading": [{"type": "mcq", "points": 0.25, "correct": "B"}, {"type": "true_false", "points": 1.0, "correct": ["D", "S", "D", "S"], "scheme": "tf_4_1"}, {"type": "short", "points": 0.75, "correct": ["2", "2 Hz"]}], "total": 2, "exampleScore": 1.5, "title": "Bài tập mẫu: Toán & dao động điều hòa"}</script>
+</body>
+</html>
